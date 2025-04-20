@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceptance and Meal Cards</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .card {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen p-2">
+    <!-- Timer in top right corner -->
+    
+    <div class="bg-gray-800 justify-center items-center text-center text-white py-8">
+        <div id="mealTypeDisplay">Mess Pass</div>
+     </div>
+    <div class="max-w-md mx-auto space-y-1">
+        
+        <div class="card bg-white rounded-lg overflow-hidden">
+            
+            
+            <div class="p-4 space-y-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex relative size-x-2">
+                        <div>
+                        <img src="image.jpeg" alt="" class="w-20 rounded-full border-2 border-gray-300">
+                        </div>
+
+                        <div class="ml-4">
+                        <p class="text-2xl font-bold" id="mealTypeCard">Breakfast</p>
+                        <p class=" font-bold">12315259</p>
+                        <p class=" font-bold">Abhay kr Singh</p>
+                        <p class=" font-bold">Mess-Centre-02</p>
+                        </div>
+                    </div>
+                    <div id="countdown" class="font-bold text-xl bg-gray-200 text-gray-800 rounded-lg px-3 py-1">30</div>
+                </div>
+                
+                
+                <div>
+                    <p class="text-sm">P132:B.Tech. (Computer Science and Engineering) (2023)</p>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <p id="meal-date" class="font-bold ">Apr 20, 2025</p>
+                    </div>
+                    <div>
+                        <p id="meal-time" class="font-bold">08:24 AM</p>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center font-bold text-xl text-green-500 mb-3 drop-shadow-[0_0_4px_#00FF00]">Meal Approved</div>
+                
+                <div id="approvalBox" class="border-[16px] border-[#4B0019] bg-white border-8  py-20 flex justify-center -mx-4">
+                    <div class="flex items-center space-x-2">
+                      <div class="bg-green-500 text-white rounded-full p-2">
+                        ✔
+                      </div>
+                      <span class="text-green-700 font-bold text-lg">ACCEPTED</span>
+                    </div>
+                  </div>
+            
+        </div>
+
+        <!-- Acceptance Card (Bottom) -->
+        
+            
+            
+            <div class="p-4 space-y-4">
+                <div>
+                    <p class="font-bold">Father's Name</p>
+                    <p class="font-medium">Sanjeev Kumar Singh (9914146792)</p>
+                </div>
+                
+                <div>
+                    <p class="font-bold">Mother's Name</p>
+                    <p class="font-medium">Meenu ()</p>
+                </div>
+                
+                <div>
+                    <p class="font-bold">Session</p>
+                    <p class="font-medium">P132:B.Tech. (Computer Science and Engineering) (2023)</p>
+                </div>
+                
+                <div>
+                    <p class="font-bold">Hostel</p>
+                    <p class="font-medium">Boys Hostel-01-C516-Bed C (Std AC 4 Seater)</p>
+                </div>
+                
+                <hr class="my-2 border-gray-200">
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <p class="text-gray-600">Date</p>
+                        <p id="current-date" class="font-medium">Apr 20, 2025</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-600">Time</p>
+                        <p id="current-time" class="font-medium">08:24 AM</p>
+                    </div>
+                </div>
+                
+                <hr class="my-2 border-gray-200">
+                
+                <div class="flex justify-between border-2 border-gray-800 rounded-lg px-4 py-1">
+                    <p class="">Verification&nbsp;Code</p>
+                    <p class="font-bold text-1xl">7873479</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to format date as "MMM DD, YYYY"
+        function formatDate(date) {
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+        }
+
+        // Function to format time as "HH:MM AM/PM"
+        function formatTime(date) {
+            let hours = date.getHours();
+            const minutes = date.getMinutes().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            return `${hours}:${minutes} ${ampm}`;
+        }
+
+        // Update date and time
+        function updateDateTime() {
+            const now = new Date();
+            
+            // Update acceptance card
+            document.getElementById('current-date').textContent = formatDate(now);
+            document.getElementById('current-time').textContent = formatTime(now);
+            
+            // Update meal card
+            document.getElementById('meal-date').textContent = formatDate(now);
+            document.getElementById('meal-time').textContent = formatTime(now);
+        }
+
+        // Countdown timer
+        function startCountdown() {
+            let seconds = 30;
+            const countdownElement = document.getElementById('countdown');
+            
+            const timer = setInterval(() => {
+                seconds--;
+                countdownElement.textContent = `${seconds}`;
+                
+                if (seconds <= 0) {
+                    clearInterval(timer);
+                    countdownElement.textContent = "";
+                    countdownElement.classList.add('text-gray-400');
+                } else if (seconds <= 10) {
+                    countdownElement.classList.add('animate-pulse');
+                }
+            }, 1000);
+        }
+
+        // Apply selected color to approval box
+        function applySelectedColor() {
+            const selectedColor = localStorage.getItem('selectedColor') || '#4B0019';
+            const approvalBox = document.getElementById('approvalBox');
+            approvalBox.style.borderColor = selectedColor;
+        }
+
+        // Display selected meal type
+        function displaySelectedMeal() {
+            const selectedMeal = localStorage.getItem('selectedMeal');
+            const mealTypeDisplay = document.getElementById('mealTypeDisplay');
+            const mealTypeCard = document.getElementById('mealTypeCard');
+            
+            if (selectedMeal) {
+                // Update both the header and the card
+                mealTypeDisplay.textContent = `${selectedMeal} - Mess Pass`;
+                mealTypeCard.textContent = selectedMeal;
+                console.log('Setting meal type to:', selectedMeal); // Debug log
+            } else {
+                console.log('No meal type found in localStorage'); // Debug log
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateDateTime();
+            startCountdown();
+            applySelectedColor();
+            displaySelectedMeal();
+            
+            // Update time every minute
+            setInterval(updateDateTime, 60000);
+        });
+    </script>
+</body>
+</html>

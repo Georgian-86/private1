@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Color Selection</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <style>
+    body {
+      background-color: #f3f4f6;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    /* Custom color picker styling */
+    input[type="color"] {
+      -webkit-appearance: none;
+      width: 80px;
+      height: 80px;
+      border: none;
+      border-radius: 8px;
+      padding: 0;
+      cursor: pointer;
+    }
+    
+    input[type="color"]::-webkit-color-swatch-wrapper {
+      padding: 0;
+    }
+    
+    input[type="color"]::-webkit-color-swatch {
+      border: none;
+      border-radius: 8px;
+    }
+    
+    .color-preview {
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+      border: 2px solid #e5e7eb;
+    }
+  </style>
+</head>
+<body>
+  <!-- Color Selection Screen -->
+  <div class="bg-white p-8 rounded-lg w-96 shadow-xl">
+    <h2 class="text-2xl font-bold mb-6 text-center">Select Boundary Color</h2>
+    <div class="grid grid-cols-3 gap-4 mb-8">
+      <button onclick="selectColor('#4B0019')" class="w-20 h-20 bg-[#4B0019] rounded-lg hover:scale-110 transition-transform shadow-md"></button>
+      <button onclick="selectColor('#006400')" class="w-20 h-20 bg-[#006400] rounded-lg hover:scale-110 transition-transform shadow-md"></button>
+      <button onclick="selectColor('#00008B')" class="w-20 h-20 bg-[#00008B] rounded-lg hover:scale-110 transition-transform shadow-md"></button>
+      <button onclick="selectColor('#800080')" class="w-20 h-20 bg-[#800080] rounded-lg hover:scale-110 transition-transform shadow-md"></button>
+      <button onclick="selectColor('#FF4500')" class="w-20 h-20 bg-[#FF4500] rounded-lg hover:scale-110 transition-transform shadow-md"></button>
+      <button onclick="selectColor('#4B0082')" class="w-20 h-20 bg-[#4B0082] rounded-lg hover:scale-110 transition-transform shadow-md"></button>
+    </div>
+    
+    <!-- Custom Color Section -->
+    <div class="border-t pt-6">
+      <h3 class="text-lg font-semibold mb-4 text-center">Custom Color</h3>
+      <div class="flex flex-col items-center gap-4">
+        <div class="flex items-center gap-4">
+          <input type="color" id="customColor" class="color-picker" value="#000000">
+          <div id="colorPreview" class="color-preview"></div>
+        </div>
+        <button onclick="selectCustomColor()" class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors w-full">
+          Use Custom Color
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Initialize color preview
+    document.addEventListener('DOMContentLoaded', () => {
+      const colorPicker = document.getElementById('customColor');
+      const colorPreview = document.getElementById('colorPreview');
+      
+      // Set initial preview color
+      colorPreview.style.backgroundColor = colorPicker.value;
+      
+      // Update preview when color changes
+      colorPicker.addEventListener('input', (e) => {
+        colorPreview.style.backgroundColor = e.target.value;
+      });
+    });
+
+    function selectColor(color) {
+      localStorage.setItem('selectedColor', color);
+      window.location.href = 'dashboard.html';
+    }
+
+    function selectCustomColor() {
+      const customColor = document.getElementById('customColor').value;
+      if (customColor) {
+        localStorage.setItem('selectedColor', customColor);
+        window.location.href = 'dashboard.html';
+      } else {
+        alert('Please select a custom color first');
+      }
+    }
+  </script>
+</body>
+</html>
